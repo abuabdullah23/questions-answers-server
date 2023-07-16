@@ -72,6 +72,11 @@ async function run() {
             res.send(result);
         })
 
+        // get All questions
+        app.get('/questions', async (req, res) => {
+            const result = await questionsCollection.find().toArray();
+            res.send(result);
+        })
 
 
 
