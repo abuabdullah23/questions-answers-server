@@ -33,6 +33,8 @@ async function run() {
         // create collection
         const questionsAnswersCollection = client.db('assunnahQA').collection('questionsAnswers');
         const categoriesCollection = client.db('assunnahQA').collection('categories');
+        const questionsCollection = client.db('assunnahQA').collection('questions');
+
 
 
         // ================ questions and answer related api
@@ -48,7 +50,7 @@ async function run() {
 
         app.get('/qa-details/:id', async (req, res) => {
             const id = req.params.id;
-            const query = {_id : new ObjectId(id)}
+            const query = { _id: new ObjectId(id) }
             const result = await questionsAnswersCollection.findOne(query);
             res.send(result);
         })
@@ -62,6 +64,13 @@ async function run() {
             res.send(result);
         })
 
+
+        // ============ questions api
+        app.post('/questions', async (req, res) => {
+            const question = req.body;
+            const result = await questionsCollection.insertOne(question);
+            res.send(result);
+        })
 
 
 
