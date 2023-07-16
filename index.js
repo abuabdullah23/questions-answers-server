@@ -72,9 +72,18 @@ async function run() {
             res.send(result);
         })
 
-        // get All questions
+        // get All questions 
+        // TODO: verifyJWT, verifyAdmin
         app.get('/questions', async (req, res) => {
             const result = await questionsCollection.find().toArray();
+            res.send(result);
+        })
+
+        // get single question
+        app.get('/question/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await questionsCollection.findOne(query);
             res.send(result);
         })
 
