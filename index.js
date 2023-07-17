@@ -67,7 +67,11 @@ async function run() {
 
         // ============= Category api
         app.get('/categories', async (req, res) => {
-            const result = await categoriesCollection.find().toArray();
+            const query = {}
+            const options = {
+                sort: { category: 1 }
+            }
+            const result = await categoriesCollection.find(query, options).toArray();
             res.send(result);
         })
 
