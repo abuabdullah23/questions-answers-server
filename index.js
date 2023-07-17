@@ -82,7 +82,11 @@ async function run() {
         // get All questions 
         // TODO: verifyJWT, verifyAdmin
         app.get('/questions', async (req, res) => {
-            const result = await questionsCollection.find().toArray();
+            const query = {}
+            const options = {
+                sort: { _id: -1 }
+            }
+            const result = await questionsCollection.find(query, options).toArray();
             res.send(result);
         })
 
