@@ -38,6 +38,13 @@ async function run() {
 
 
         // ================ questions and answer related api
+        // post answer. TODO: verifyJWT, Admin
+        app.post('/questions-answers', async (req, res) => {
+            const answerData = req.body;
+            const result = await questionsAnswersCollection.insertOne(answerData);
+            res.send(result);
+        })
+
         // get all questions and answer 
         app.get('/questions-answers', async (req, res) => {
             const query = {}
@@ -87,6 +94,13 @@ async function run() {
             res.send(result);
         })
 
+        // delete question after send answer successfully
+        app.delete('/question/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await questionsCollection.deleteOne(query);
+            res.send(result);
+        })
 
 
 
